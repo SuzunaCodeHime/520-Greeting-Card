@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>520 贺卡</title>
+<style>
+/*清除所有标签默认内外边距*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;/*固定盒子大小，内边距不会撑大盒子*/
+}
+
+/*页面整体body样式*/
+body{
+    min-height: 100vh;/*让页面占满整个浏览器高度*/
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);/*渐变背景*/
+    display: flex;/*弹性布局*/
+    justify-content: center;/*水平居中*/
+    align-items: center;/*垂直居中*/
+    font-family: 'Microsoft YaHei', sans-serif;/*字体*/
+}
+
+/*贺卡大盒子样式*/
+.card{
+    width: 400px;/*宽度*/
+    height:500px;/*高度*/
+    background:#fff;/*背景色*/
+    border-radius: 20px;/*圆角*/
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);/*阴影*/
+    padding: 30px;/*内边距*/
+    text-align: center;/*文本居中*/
+    position: relative;/*相对定位，用来放里面小爱心*/
+    overflow: hidden;/*隐藏溢出部分*/
+}
+
+/*======== 修复1：爱心选择器改为 .heart ========*/
+.heart{
+    position: absolute;/*绝对定位*/
+    width: 20px;/*宽度*/
+    height: 20px;/*高度*/
+    background:#ff6b81;/*背景色*/
+    transform: rotate(45deg);/*旋转45度形成爱心*/
+}
+
+/*======== 修复2：伪元素也改为 .heart ========*/
+.heart::before,
+.heart::after{
+    content: '';/*生成内容*/
+    position: absolute;/*绝对定位*/
+    width: 20px;/*宽度*/
+    height: 20px;/*高度*/
+    background:#ff6b81;/*背景色*/
+    border-radius: 50%;/*圆形*/
+}
+.heart::before{
+    top: -10px;left: 0;/*上半圆位置*/
+}
+.heart::after{
+    top: 0;left: -10px;/*左半圆位置*/
+}
+
+/*分别设置4个爱心的位置和大小*/
+.heart:nth-child(1){top: 20px;left:30px}
+.heart:nth-child(2){top: 50px;right: 40px; transform: scale(0.7);}
+.heart:nth-child(3){bottom: 60px;left: 50px; transform: scale(0.8);}
+.heart:nth-child(4){bottom: 30px;right: 30px; transform: scale(0.6);}
+
+/*贺卡h1标题样式*/
+h1{
+    color: #ff6b81;/*颜色*/
+    font-size: 36px;/*字体大小*/
+    /*======== 修复3：margin语法正确写法 ========*/
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/*贺卡内容样式*/
+.content{
+    color: #666;/*颜色*/
+    line-height: 1.8;/*行高*/
+    font-size: 16px;/*字体大小*/
+    margin-bottom:30px;/*下边距*/
+}
+
+/*右下角署名样式*/
+.sign{
+    color:#ff6b81;/*颜色*/
+    font-size: 18px;/*字体大小*/
+    font-weight: bold;/*加粗*/
+    text-align: right;/*右对齐*/
+    margin-top: 40px;/*上边距*/
+}
+</style>
+</head>
+<body>
+
+<!--贺卡整体容器-->
+<div class="card">
+    <!--4个爱心-->
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+
+    <!--======== 修复4：添加h1标题 =========-->
+    <h1>520 快乐</h1>
+
+    <!--======== 修复5：所有内容放进card盒子里 =========-->
+    <!--贺卡内容-->
+    <div class="content">
+        世界很大，幸福很小<br>
+        有你在身边，风都超级甜<br>
+        谢谢你，出现在我的生命里<br>
+        愿我们，不止520快乐，每一天都快乐
+    </div>
+    <!--署名-->
+    <div class="sign">
+        --- 给最爱的你
+    </div>
+
+</div>
+
+</body>
+</html>
