@@ -2,125 +2,140 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>520 贺卡</title>
-<style>
-/*清除所有标签默认内外边距*/
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;/*固定盒子大小，内边距不会撑大盒子*/
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>520致我最爱的妈妈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #ffe8ef;
+            text-align: center;
+            padding: 60px 15px;
+            overflow-x: hidden;
+        }
+        h1 {
+            color: #e64c78;
+            font-size: 34px;
+            margin-bottom: 35px;
+        }
+        .say-text {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 18px;
+            color: #555;
+            line-height: 2.1;
+            min-height: 160px;
+        }
+        .btn {
+            margin-top: 25px;
+            padding: 12px 40px;
+            border: none;
+            background-color: #ff6b8b;
+            color: #fff;
+            font-size: 17px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background-color: #e64c78;
+        }
+        .love {
+            position: absolute;
+            color: #ff5079;
+            font-size: 22px;
+            user-select: none;
+            z-index: -1;
+        }
 
-/*页面整体body样式*/
-body{
-    min-height: 100vh;/*让页面占满整个浏览器高度*/
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);/*渐变背景*/
-    display: flex;/*弹性布局*/
-    justify-content: center;/*水平居中*/
-    align-items: center;/*垂直居中*/
-    font-family: 'Microsoft YaHei', sans-serif;/*字体*/
-}
-
-/*贺卡大盒子样式*/
-.card{
-    width: 400px;/*宽度*/
-    height:500px;/*高度*/
-    background:#fff;/*背景色*/
-    border-radius: 20px;/*圆角*/
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);/*阴影*/
-    padding: 30px;/*内边距*/
-    text-align: center;/*文本居中*/
-    position: relative;/*相对定位，用来放里面小爱心*/
-    overflow: hidden;/*隐藏溢出部分*/
-}
-
-/*======== 修复1：爱心选择器改为 .heart ========*/
-.heart{
-    position: absolute;/*绝对定位*/
-    width: 20px;/*宽度*/
-    height: 20px;/*高度*/
-    background:#ff6b81;/*背景色*/
-    transform: rotate(45deg);/*旋转45度形成爱心*/
-}
-
-/*======== 修复2：伪元素也改为 .heart ========*/
-.heart::before,
-.heart::after{
-    content: '';/*生成内容*/
-    position: absolute;/*绝对定位*/
-    width: 20px;/*宽度*/
-    height: 20px;/*高度*/
-    background:#ff6b81;/*背景色*/
-    border-radius: 50%;/*圆形*/
-}
-.heart::before{
-    top: -10px;left: 0;/*上半圆位置*/
-}
-.heart::after{
-    top: 0;left: -10px;/*左半圆位置*/
-}
-
-/*分别设置4个爱心的位置和大小*/
-.heart:nth-child(1){top: 20px;left:30px}
-.heart:nth-child(2){top: 50px;right: 40px; transform: scale(0.7);}
-.heart:nth-child(3){bottom: 60px;left: 50px; transform: scale(0.8);}
-.heart:nth-child(4){bottom: 30px;right: 30px; transform: scale(0.6);}
-
-/*贺卡h1标题样式*/
-h1{
-    color: #ff6b81;/*颜色*/
-    font-size: 36px;/*字体大小*/
-    /*======== 修复3：margin语法正确写法 ========*/
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-/*贺卡内容样式*/
-.content{
-    color: #666;/*颜色*/
-    line-height: 1.8;/*行高*/
-    font-size: 16px;/*字体大小*/
-    margin-bottom:30px;/*下边距*/
-}
-
-/*右下角署名样式*/
-.sign{
-    color:#ff6b81;/*颜色*/
-    font-size: 18px;/*字体大小*/
-    font-weight: bold;/*加粗*/
-    text-align: right;/*右对齐*/
-    margin-top: 40px;/*上边距*/
-}
-</style>
+        /* 手机适配 */
+        @media (max-width: 768px) {
+            body{
+                padding-top: 40px;
+            }
+            h1{
+                font-size: 26px;
+            }
+            .say-text{
+                font-size: 16px;
+            }
+            .btn{
+                width: 80%;
+                padding: 14px 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <h1>💖 520 致全世界最好的妈妈 💖</h1>
+    <div class="say-text" id="textBox"></div>
+    <button class="btn" id="btn">点击收下我的爱意</button>
 
-<!--贺卡整体容器-->
-<div class="card">
-    <!--4个爱心-->
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
+    <script>
+        var textBox = document.getElementById("textBox");
+        var btn = document.getElementById("btn");
 
-    <!--======== 修复4：添加h1标题 =========-->
-    <h1>520 快乐</h1>
+        // 修复方案：用数组存每一行，自动换行，不显示br！
+        var msgList = [
+            "亲爱的妈妈：",
+            "从小到大辛苦您啦，谢谢您包容我的所有小情绪。",
+            "520不止是情侣的节日，更是我向您表达爱意的日子。",
+            "愿岁月温柔待您，永远平安健康，无忧无虑，青春永驻，我永远最爱您！"
+        ];
+        var lineIndex = 0;  // 行数
+        var wordIndex = 0;  // 字数
 
-    <!--======== 修复5：所有内容放进card盒子里 =========-->
-    <!--贺卡内容-->
-    <div class="content">
-        世界很大，幸福很小<br>
-        有你在身边，风都超级甜<br>
-        谢谢你，出现在我的生命里<br>
-        愿我们，不止520快乐，每一天都快乐
-    </div>
-    <!--署名-->
-    <div class="sign">
-        --- 给最爱的你
-    </div>
+        // 逐行+逐字打印，自动换行，不显示br标签！
+        function printWord(){
+            if(lineIndex < msgList.length){
+                var currentLine = msgList[lineIndex];
+                if(wordIndex < currentLine.length){
+                    textBox.innerHTML += currentLine.charAt(wordIndex);
+                    wordIndex++;
+                    setTimeout(printWord,80);
+                }else{
+                    // 一行打完，自动换行
+                    textBox.innerHTML += "<br>";
+                    wordIndex = 0;
+                    lineIndex++;
+                    setTimeout(printWord,80);
+                }
+            }
+        }
 
-</div>
+        window.onload = printWord;
 
+        // 点击弹窗
+        btn.onclick = function(){
+            alert("妈妈~520快乐❤️ 往后余生我好好孝顺您！");
+        }
+
+        // 爱心飘落
+        function createLove(){
+            var love = document.createElement("div");
+            love.className = "love";
+            love.innerHTML = "❤";
+            var leftPos = Math.random() * window.innerWidth;
+            love.style.left = leftPos + "px";
+            love.style.top = "-30px";
+            document.body.appendChild(love);
+
+            var speed = Math.random()*3+2;
+            function fall(){
+                var top = parseInt(love.style.top);
+                love.style.top = top + speed + "px";
+                if(top > window.innerHeight){
+                    document.body.removeChild(love);
+                }
+                requestAnimationFrame(fall);
+            }
+            fall();
+        }
+        setInterval(createLove,300);
+    </script>
 </body>
 </html>
